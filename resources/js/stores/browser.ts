@@ -35,6 +35,7 @@ interface State {
   path?: string
   disk?: string
   disks?: string[]
+  sort?: string[],
   page?: number
   search?: string
   perPage?: number
@@ -85,6 +86,7 @@ const useBrowserStore = defineStore('nova-file-manager/browser', {
     path: undefined,
     disk: undefined,
     disks: undefined,
+    sort: undefined,
     page: undefined,
     search: undefined,
     perPage: 15,
@@ -460,6 +462,16 @@ const useBrowserStore = defineStore('nova-file-manager/browser', {
       this.saveToLocalStorage({ values: { disk, page: null, search: null, path: null } })
     },
 
+    async setSort({ sort }: { sort?: string }) {
+      this.reset()
+
+      this.sort = sort
+
+      this.setQueryString({ parameters: { sort } })
+
+      this.saveToLocalStorage({ values: { sort, page: null, search: null, path: null } })
+    },
+
     /**
      * Set the current per page
      */
@@ -520,6 +532,7 @@ const useBrowserStore = defineStore('nova-file-manager/browser', {
         params: this.payload({
           path: this.path,
           page: this.page,
+          sort: this.sort,
           perPage: this.perPage,
           search: this.search,
         }),
@@ -807,6 +820,7 @@ const useBrowserStore = defineStore('nova-file-manager/browser', {
       this.error = undefined
       this.permissions = permissions
       this.disk = undefined
+      this.sort = undefined
       this.component = component
 
       this.openModal({ name: BROWSER_MODAL_NAME })
@@ -830,6 +844,7 @@ const useBrowserStore = defineStore('nova-file-manager/browser', {
       this.error = undefined
       this.permissions = undefined
       this.disk = undefined
+      this.sort = undefined
 
       this.setSelection({ files: [] })
       this.closeModal({ name: BROWSER_MODAL_NAME })

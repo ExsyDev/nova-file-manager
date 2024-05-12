@@ -18,6 +18,7 @@ const SPOTLIGHT_MODIFIERS = {
 
 const WATCHABLE_ACTIONS = [
   'setDisk',
+  'setSort',
   'setPath',
   'setPerPage',
   'setPage',

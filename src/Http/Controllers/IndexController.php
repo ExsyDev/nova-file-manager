@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Oneduo\NovaFileManager\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 use Oneduo\NovaFileManager\Http\Requests\IndexRequest;
 
 class IndexController extends Controller
@@ -19,9 +20,25 @@ class IndexController extends Controller
     {
         $manager = $request->manager();
 
+        $files = $manager->files();
+
+        $sortOption = $request->input('sort', 'name');
+
+        $files = match ($sortOption) {
+            'extension' => $files->sortBy(function ($file) {
+                return pathinfo($file, PATHINFO_EXTENSION);
+            }),
+            'size' => $files->sortBy(function ($file) use ($manager) {
+                return Storage::size($manager->getDisk() . '/' . $file);
+            }),
+            default => $files->sortBy(function ($file) {
+                return $file;
+            }),
+        };
+
         /** @var \Illuminate\Pagination\LengthAwarePaginator $paginator */
         $paginator = $manager
-            ->paginate($manager->files())
+            ->paginate($files)
             ->onEachSide(1);
 
         return response()->json([

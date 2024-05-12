@@ -24,6 +24,7 @@ const { showCreateFolder, showUploadFile, showDeleteFile } = usePermissions()
 const isField = computed(() => store.isField)
 const disk = computed(() => store.disk)
 const disks = computed(() => store.disks)
+const sort = computed(() => store.sort)
 const singleDisk = computed(() => store.singleDisk)
 const isFetchingDisks = computed(() => store.isFetchingDisks)
 const breadcrumbs = computed(() => store.breadcrumbs)
@@ -37,6 +38,7 @@ const loadingOperation = computed(() => store.loadingOperation)
 
 // ACTIONS
 const setDisk = (disk: string) => store.setDisk({ disk })
+const setSort = (sort: string) => store.setSort({ sort })
 const setPerPage = (perPage: number) => store.setPerPage({ perPage })
 const setPath = (path: string) => store.setPath({ path })
 const setView = (view: View) => store.setView({ view })
@@ -58,6 +60,8 @@ const openUploadModal = () => {
       <div class="flex flex-row items-center gap-2 w-full flex-wrap sm:flex-nowrap">
         <DiskSelector
           v-if="!singleDisk"
+          :set-sort="setSort"
+          :selected-sort-option="sort"
           :disk="disk"
           :disks="disks"
           :set-disk="setDisk"
