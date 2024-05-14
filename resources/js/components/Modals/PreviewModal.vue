@@ -96,14 +96,14 @@ const copy = (file: Entity) => {
           >
             <TrashIcon class="w-5 h-5" />
           </IconButton>
-          <IconButton
-            v-if="!readOnly && showCropImage && !usePinturaEditor && file?.type === 'image'"
-            variant="secondary"
-            @click="openModal(`crop-image-${file?.id}`)"
-            :title="__('NovaFileManager.actions.cropImage', { image: file?.name })"
-          >
-            <CropIcon class="w-5 h-5" />
-          </IconButton>
+<!--          <IconButton-->
+<!--            v-if="!readOnly && showCropImage && !usePinturaEditor && file?.type === 'image'"-->
+<!--            variant="secondary"-->
+<!--            @click="openModal(`crop-image-${file?.id}`)"-->
+<!--            :title="__('NovaFileManager.actions.cropImage', { image: file?.name })"-->
+<!--          >-->
+<!--            <CropIcon class="w-5 h-5" />-->
+<!--          </IconButton>-->
           <IconButton
             v-if="!readOnly && showCropImage && usePinturaEditor && file?.type === 'image'"
             variant="secondary"
@@ -122,9 +122,9 @@ const copy = (file: Entity) => {
             <ArchiveBoxIcon class="w-5 h-5" />
           </IconButton>
 
-          <IconButton @click="copy(file)" variant="secondary" :title="__('NovaFileManager.actions.copy')">
-            <ClipboardDocumentIcon class="w-5 h-5" />
-          </IconButton>
+<!--          <IconButton @click="copy(file)" variant="secondary" :title="__('NovaFileManager.actions.copy')">-->
+<!--            <ClipboardDocumentIcon class="w-5 h-5" />-->
+<!--          </IconButton>-->
 
           <IconButton
             :as-anchor="true"
